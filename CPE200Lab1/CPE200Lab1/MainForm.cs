@@ -20,7 +20,7 @@ namespace CPE200Lab1
         private string secondOperand;
         private string operate;
         CalculatorEngine engine;
-        double Mpluse;
+        double Mplus;
         double Mminus;
         double sum = 0;
 
@@ -125,8 +125,8 @@ namespace CPE200Lab1
                     break;
 
                 case "M+":
-                    Mpluse = Convert.ToDouble(lblDisplay.Text);
-                    sum = sum + Mpluse;
+                    Mplus = Convert.ToDouble(lblDisplay.Text);
+                    sum = sum + Mplus;
                     isAfterOperater = true;
                     break;
 
