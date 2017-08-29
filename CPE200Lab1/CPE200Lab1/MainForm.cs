@@ -283,6 +283,7 @@ namespace CPE200Lab1
         private void btnMC_Click(object sender, EventArgs e)
         {
             memory = 0;
+            resetAll();
         }
 
         private void btnMM_Click(object sender, EventArgs e)
