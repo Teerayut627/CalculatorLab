@@ -16,7 +16,7 @@ namespace CPE200Lab1
         private bool isAllowBack;
         private bool isAfterOperater;
         private bool isAfterEqual;
-        private string firstOperand;
+        private string firstOperand = null;
         private string secondOperand;
         private string operate;
         CalculatorEngine engine;
@@ -32,6 +32,8 @@ namespace CPE200Lab1
             isAfterOperater = false;
             isAfterEqual = false;
             sum = 0;
+            firstOperand = null;
+
         }
 
         
@@ -251,6 +253,11 @@ namespace CPE200Lab1
         private void btnMC_Click(object sender, EventArgs e)
         {
             resetAll();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
