@@ -24,7 +24,6 @@ namespace CPE200Lab1
         double Mminus;
         double sum = 0;
         private double memory;
-        private CalculatorEngine engine;
 
         private void resetAll()
         {
