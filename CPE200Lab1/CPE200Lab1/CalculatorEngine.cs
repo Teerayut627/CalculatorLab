@@ -16,7 +16,8 @@ namespace CPE200Lab1
 
         public bool isOperator(string str)
         {
-            switch(str) {
+            switch (str)
+            {
                 case "+":
                 case "-":
                 case "X":
@@ -28,21 +29,15 @@ namespace CPE200Lab1
 
         public string Process(string str)
         {
-            List<string> parts = str.Split(' ').ToList<string>();
-            string result;
-            while(parts.Count > 1)
+            string[] parts = str.Split(' ');
+            if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
             {
-                if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
-                {
-                    return "E";
-                } else
-                {
-                    result = calculate(parts[1], parts[0], parts[2], 4);
-                    parts.RemoveRange(0, 3);
-                    parts.Insert(0, result);
-                }
+                return "E";
+            } else
+            {
+                return calculate(parts[1], parts[0], parts[2], 4);
             }
-            return parts[0];
+
         }
         public string unaryCalculate(string operate, string operand, int maxOutputSize = 8)
         {
@@ -68,7 +63,7 @@ namespace CPE200Lab1
                         return result.ToString("N" + remainLength);
                     }
                 case "1/x":
-                    if(operand != "0")
+                    if (operand != "0")
                     {
                         double result;
                         string[] parts;

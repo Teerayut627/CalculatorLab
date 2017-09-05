@@ -17,9 +17,13 @@ namespace CPE200Lab1
         private bool isAfterOperater;
         private bool isAfterEqual;
         private string firstOperand;
+        private string secondOperand;
         private string operate;
+        CalculatorEngine engine;
+        double Mpluse;
+        double Mminus;
+        double sum = 0;
         private double memory;
-        private CalculatorEngine engine;
 
         private void resetAll()
         {
@@ -28,10 +32,11 @@ namespace CPE200Lab1
             hasDot = false;
             isAfterOperater = false;
             isAfterEqual = false;
+            sum = 0;
             firstOperand = null;
         }
 
-      
+        
 
         public MainForm()
         {
@@ -103,31 +108,64 @@ namespace CPE200Lab1
             {
                 return;
             }
-            if(firstOperand != null)
-            {
-                string secondOperand = lblDisplay.Text;
-                string result = engine.calculate(operate, firstOperand, secondOperand);
-                if (result is "E" || result.Length > 8)
-                {
-                    lblDisplay.Text = "Error";
-                }
-                else
-                {
-                    lblDisplay.Text = result;
-                }
-            }
+
+            string result = engine.calculate(operate, firstOperand, secondOperand);
+            string temp = operate;
             operate = ((Button)sender).Text;
+
             switch (operate)
             {
                 case "+":
                 case "-":
                 case "X":
                 case "÷":
-                    firstOperand = lblDisplay.Text;
-                    isAfterOperater = true;
+                    if (firstOperand == null)
+                    {
+                        firstOperand = lblDisplay.Text;
+                        isAfterOperater = true;
+                    }
+                    else
+                    {
+                        secondOperand = lblDisplay.Text;
+                        firstOperand = engine.calculate(temp, firstOperand, secondOperand);
+                        lblDisplay.Text = firstOperand;
+                        isAfterOperater = true;
+                    }
                     break;
                 case "%":
                     // your code here
+                    lblDisplay.Text = (Convert.ToDouble(firstOperand) * Convert.ToDouble(lblDisplay.Text) / 100).ToString();
+                    isAfterOperater = true;
+                    operate = temp;
+                    break;
+
+                case "√":
+                    firstOperand = lblDisplay.Text;
+                    lblDisplay.Text = (Math.Pow(Convert.ToDouble(firstOperand), 0.5)).ToString();
+                    isAfterOperater = true;
+                    break;
+
+                case "1/X":
+                    firstOperand = lblDisplay.Text;
+                    lblDisplay.Text = (1 / Convert.ToDouble(firstOperand)).ToString();
+                    isAfterOperater = true;
+                    break;
+
+                case "M+":
+                    Mpluse = Convert.ToDouble(lblDisplay.Text);
+                    sum = sum + Mpluse;
+                    isAfterOperater = true;
+                    break;
+
+                case "M-":
+                    Mminus = Convert.ToDouble(lblDisplay.Text);
+                    sum = sum - Mminus;
+                    isAfterOperater = true;
+                    break;
+                case "MS":
+                    sum = Convert.ToDouble(lblDisplay.Text);
+
+                    isAfterOperater = true;
                     break;
             }
             isAllowBack = false;
@@ -245,6 +283,7 @@ namespace CPE200Lab1
         private void btnMC_Click(object sender, EventArgs e)
         {
             memory = 0;
+            resetAll();
         }
 
         private void btnMM_Click(object sender, EventArgs e)
