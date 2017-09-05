@@ -20,11 +20,7 @@ namespace CPE200Lab1
                 {
                     rpnStack.Push(i);
                 }
-                else if (i == "")
-                {
-                    break;
-                }
-                else
+                if (isOperator(i))
                 {
                     string secondOperand = rpnStack.Pop();
                     string firstOperand = rpnStack.Pop();
