@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CPE200Lab1
 {
-    class CalculatorEngine
+    public class CalculatorEngine
     {
-        public bool isNumber(string str)
+        private bool isNumber(string str)
         {
             double retNum;
             return Double.TryParse(str, out retNum);
         }
 
-        public bool isOperator(string str)
+        private bool isOperator(string str)
         {
             switch (str)
             {
@@ -29,13 +29,19 @@ namespace CPE200Lab1
 
         public string Process(string str)
         {
-            string[] parts = str.Split(' ');
-            if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+            List<string> parts = str.Split(' ').ToList<string>();
+            string result;
+            while(parts.Count > 1)
             {
-                return "E";
-            } else
-            {
-                return calculate(parts[1], parts[0], parts[2], 4);
+                if(!(isNumber(parts[0]) && isOperator(parts[1]) && isNumber(parts[2])))
+                {
+                    return "E";
+                } else
+                {
+                    result = calculate(parts[1], parts[0], parts[2], 4);
+                    parts.RemoveRange(0, 3);
+                    parts.Insert(0, result);
+                }
             }
 
         }

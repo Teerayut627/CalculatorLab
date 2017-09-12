@@ -63,11 +63,11 @@ namespace CPE200Lab1
             isNumberPart = false;
             isContainDot = false;
             string current = lblDisplay.Text;
-          //  if (current[current.Length - 1] != ' ')
-          //  {
+            if (current[current.Length - 1] != ' ' || isOperator(current[current.Length - 2]))
+            {
                 lblDisplay.Text += " " + ((Button)sender).Text + " ";
                 isSpaceAllowed = false;
-          //  }
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -101,7 +101,6 @@ namespace CPE200Lab1
 
         private void btnEqual_Click(object sender, EventArgs e)
         {
-
             string result = engine.Process(lblDisplay.Text);
             if (result is "E")
             {
@@ -109,6 +108,9 @@ namespace CPE200Lab1
             } else
             {
                 lblDisplay.Text = result;
+                isSpaceAllowed = true;
+                isContainDot = false;
+                isNumberPart = true;
             }
         }
 
